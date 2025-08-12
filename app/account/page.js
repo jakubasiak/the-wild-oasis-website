@@ -1,6 +1,12 @@
+export const metadata = {
+  title: 'Guest area',
+};
+
 function Page() {
   return (
-    <h1>Account</h1>
+    <h2 className="font-semibold text-2xl text-accent-400 mb-7">
+      Welcome, XXX
+    </h2>
   );
 }
 
