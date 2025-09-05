@@ -1,8 +1,16 @@
-import CabinCard from "@/app/_components/CabinCard";
+import CabinList from "@/app/_components/CabinList";
+import Spinner from "@/app/_components/Spinner";
+import { Suspense } from "react";
+import Filter from "../_components/Filter";
 
-export default function Page() {
-  // CHANGE
-  const cabins = [];
+// REVALIDATION ON THE ROUTE LEVEL
+// it's working only for static pages. Because I have searchParams here it will not work on this page
+// export const revalidate = 3600;
+
+export default async function Page({ searchParams }) {
+
+  const filter = searchParams?.capacity ?? "all";
+  console.log(filter);
 
   return (
     <div>
@@ -17,14 +25,12 @@ export default function Page() {
         away from home. The perfect spot for a peaceful, calm vacation. Welcome
         to paradise.
       </p>
-
-      {cabins.length > 0 && (
-        <div className="grid sm:grid-cols-1 md:grid-cols-2 gap-8 lg:gap-12 xl:gap-14">
-          {cabins.map((cabin) => (
-            <CabinCard cabin={cabin} key={cabin.id} />
-          ))}
-        </div>
-      )}
+      <div className="flex justify-end mb-8">
+        <Filter />
+      </div>
+      <Suspense fallback={<Spinner />} key={filter}>
+        <CabinList filter={filter} />
+      </Suspense>
     </div>
   );
 }
