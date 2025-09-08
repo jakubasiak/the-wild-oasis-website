@@ -2,6 +2,7 @@ import CabinList from "@/app/_components/CabinList";
 import Spinner from "@/app/_components/Spinner";
 import { Suspense } from "react";
 import Filter from "../_components/Filter";
+import ReservationReminder from "../_components/ReservationReminder";
 
 // REVALIDATION ON THE ROUTE LEVEL
 // it's working only for static pages. Because I have searchParams here it will not work on this page
@@ -30,6 +31,7 @@ export default async function Page({ searchParams }) {
       </div>
       <Suspense fallback={<Spinner />} key={filter}>
         <CabinList filter={filter} />
+        <ReservationReminder />
       </Suspense>
     </div>
   );
